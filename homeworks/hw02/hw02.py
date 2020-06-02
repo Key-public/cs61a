@@ -33,7 +33,11 @@ def product(n, f):
     >>> product(3, triple)    # 1*3 * 2*3 * 3*3
     162
     """
-    "*** YOUR CODE HERE ***"
+    counter, result =  1, 1
+    while counter <= n:
+         result *= f(counter)
+         counter += 1
+    return result
 
 def accumulate(combiner, base, n, f):
     """Return the result of combining the first n terms in a sequence and base.
@@ -57,7 +61,12 @@ def accumulate(combiner, base, n, f):
     >>> accumulate(lambda x, y: (x + y) % 17, 19, 20, square)
     16
     """
-    "*** YOUR CODE HERE ***"
+    counter = 1
+    result = base
+    while counter <= n:
+        result = combiner(result, f(counter))
+        counter += 1
+    return result
 
 def summation_using_accumulate(n, f):
     """Returns the sum of f(1) + ... + f(n). The implementation
@@ -73,7 +82,7 @@ def summation_using_accumulate(n, f):
     ...       ['Recursion', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    return accumulate(add, 0, n, f)
 
 def product_using_accumulate(n, f):
     """An implementation of product using accumulate.
@@ -88,7 +97,7 @@ def product_using_accumulate(n, f):
     ...       ['Recursion', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    return product(n, f)
 
 def compose1(h, g):
     """Return a function f, such that f(x) = h(g(x))."""
@@ -111,7 +120,7 @@ def make_repeater(h, n):
     >>> make_repeater(square, 0)(5) # Yes, it makes sense to apply the function zero times! 
     5
     """
-    "*** YOUR CODE HERE ***"
+    """ YOUR CODE HERE """
 
 
 ##########################
