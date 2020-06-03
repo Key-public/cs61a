@@ -120,7 +120,11 @@ def make_repeater(h, n):
     >>> make_repeater(square, 0)(5) # Yes, it makes sense to apply the function zero times! 
     5
     """
-    """ YOUR CODE HERE """
+    function = identity
+    while n > 0:
+        function = compose1(h, function)
+        n -= 1
+    return function
 
 
 ##########################
