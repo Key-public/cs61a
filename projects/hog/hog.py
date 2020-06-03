@@ -21,7 +21,20 @@ def roll_dice(num_rolls, dice=six_sided):
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    result = 0
+    bad_luck = False
+    while num_rolls > 0:
+        current_roll = dice()
+        if current_roll > 1:
+            result += current_roll
+        else:
+            bad_luck = True
+            result += current_roll
+        num_rolls -= 1
+    if bad_luck == True:
+        return 1
+    else:    
+        return result    
     # END PROBLEM 1
 
 
@@ -32,9 +45,17 @@ def free_bacon(score):
     """
     assert score < 100, 'The game should be over.'
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    cube = str(pow(score, 3))
+    points_income = int(cube[0])
+    switcher = True
+    for n in cube[1:]:
+        if switcher == True:
+            points_income += int(n) * -1
+        else:
+            points_income += int(n)
+        switcher = not switcher   
+    return 1 + abs(points_income)
     # END PROBLEM 2
-
 
 def take_turn(num_rolls, opponent_score, dice=six_sided):
     """Simulate a turn rolling NUM_ROLLS dice, which may be 0 (Free Bacon).
@@ -50,7 +71,10 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        return free_bacon(opponent_score)
+    else:
+        return roll_dice(num_rolls, dice)
     # END PROBLEM 3
 
 
