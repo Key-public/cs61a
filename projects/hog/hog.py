@@ -126,20 +126,26 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     feral_hogs: A boolean indicating whether the feral hogs rule should be active.
     """
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
-    player0_dice_num = strategy0(score0, score1)
-    player1_dice_num = strategy1(score1, score0)
-    # BEGIN PROBLEM 5a and 5b
+    this_turn0 = 0
+    this_turn1 = 0
+    # BEGIN PROBLEMS 5a and 5b
     while score0 < goal and score1 < goal:
         if who == 0:
-            score0 += take_turn(player0_dice_num, score1, dice)
+            player0_dice_num = strategy0(score0, score1)
+            this_turn0, previous_turn0 = take_turn(player0_dice_num, score1, dice), this_turn0
+            score0 += this_turn0
+            if feral_hogs == True and abs(previous_turn0 - player0_dice_num) == 2:
+                score0 += 3
         else:
-            score1 += take_turn(player1_dice_num, score0, dice)
+            player1_dice_num = strategy1(score1, score0)
+            this_turn1, previous_turn1 = take_turn(player1_dice_num, score0, dice), this_turn1
+            score1 += this_turn1
+            if feral_hogs == True and abs(previous_turn1 - player1_dice_num) == 2:
+                score1 += 3            
         if is_swap(score1, score0) == True:
             score0, score1 = score1, score0
-        who = 1 - who         
-
-
-    # END PROBLEM 5a and 5b
+        who = other(who)         
+    # END PROBLEMS 5a and 5b
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
