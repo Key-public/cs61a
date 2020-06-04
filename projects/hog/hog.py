@@ -83,7 +83,11 @@ def is_swap(player_score, opponent_score):
     Return whether the two scores should be swapped
     """
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    powered_number = str(pow(3, player_score + opponent_score))
+    if powered_number[0] == powered_number[-1]:
+        return True
+    else:
+        return False
     # END PROBLEM 4
 
 
@@ -122,9 +126,20 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     feral_hogs: A boolean indicating whether the feral hogs rule should be active.
     """
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
-    # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 5
+    player0_dice_num = strategy0(score0, score1)
+    player1_dice_num = strategy1(score1, score0)
+    # BEGIN PROBLEM 5a and 5b
+    while score0 < goal and score1 < goal:
+        if who == 0:
+            score0 += take_turn(player0_dice_num, score1, dice)
+        else:
+            score1 += take_turn(player1_dice_num, score0, dice)
+        if is_swap(score1, score0) == True:
+            score0, score1 = score1, score0
+        who = 1 - who         
+
+
+    # END PROBLEM 5a and 5b
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
